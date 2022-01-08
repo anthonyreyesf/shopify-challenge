@@ -21,9 +21,9 @@ export default function LikedPostsModal(props) {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 pb-8">
       <h1 className="mb-8 text-center font-semibold text-lg">Your Liked posts</h1>
-      {savedPosts.map(post => (
+      {savedPosts.length > 0 ? savedPosts.map(post => (
         <Card
         key={post.title}
         avatar={post.url}
@@ -34,7 +34,9 @@ export default function LikedPostsModal(props) {
         isSavedPost={true}
         handleSavePost={() => removePost(post.title)}
       />
-      ))}
+      )) : (
+        <p className="text-center font-semibold text-md">Nothing here yet...</p>
+      )}
     </div>
   );
 }
