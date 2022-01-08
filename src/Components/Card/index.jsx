@@ -12,11 +12,16 @@ const comments = [
   { username: "linuxarmy", comment: "@kevinyarn you gotta see this 👀" },
   { username: "javaexpress", comment: "So awesome" },
 ];
-const comment1 = comments[Math.floor(Math.random() * comments.length)];
-const comment2 = comments[Math.floor(Math.random() * comments.length)];
+const comment1 = comments.pop(Math.floor(Math.random() * comments.length));
+const comment2 = comments.pop(Math.floor(Math.random() * comments.length));
 
 export default function Card(props) {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(props.isSavedPost);
+
+  function handleLike() {
+    setIsLiked(!isLiked);
+    props.handleSavePost();
+  }
   
   return (
     <div className="max-w-md sm:mx-auto rounded overflow-hidden shadow-lg mx-5 mb-8 bg-white">
@@ -31,10 +36,10 @@ export default function Card(props) {
           <i className="fas fa-ellipsis-h pt-2 text-lg"></i>
         </span>
       </div>
-      <img className="w-full bg-cover" src={props.post} />
+      <img className="w-full bg-cover" src={props.post} alt={props.title}/>
       <div className="px-3 pb-2">
         <div className="pt-2">
-          <button onClick={() => setIsLiked(!isLiked)}>
+          <button onClick={() => handleLike()}>
             <svg
               className="w-5 h-5 mr-2 text-gray-600 inline-block cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +60,7 @@ export default function Card(props) {
             <ChatAltIcon />
           </svg>
           <span className="text-sm text-gray-400 font-medium block">
-            {props.numOfLikes} likes
+            {isLiked ? Number(props.numOfLikes) + 1 : props.numOfLikes} likes
           </span>
         </div>
         <div className="pt-1">
