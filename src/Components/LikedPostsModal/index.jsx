@@ -17,6 +17,7 @@ export default function LikedPostsModal(props) {
   function removePost(title) {
     const item = savedPosts.find(post => post.title === title);
     localStorage.removeItem(item.title);
+    props.closeModal();
   }
 
   return (

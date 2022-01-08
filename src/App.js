@@ -80,7 +80,7 @@ function App() {
       </button>
       </div>
       {showModal && (
-        <LikedPostsModal/>
+        <LikedPostsModal closeModal={() => setShowmodal(false)}/>
       )}
     </div>
   );
